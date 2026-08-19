@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# IDE and workspace-local metadata
+.metadata/
+.settings/
+.vscode/
+*.launch
+
+# STM32CubeIDE build output
+Debug/
+Release/
+*.bin
+*.cyclo
+*.d
+*.elf
+*.hex
+*.list
+*.map
+*.o
+*.su
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.cache/
+.matplotlib-cache/
+
+# Locally built visualizer binaries
+radar_tui
