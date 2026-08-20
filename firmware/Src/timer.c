@@ -20,13 +20,6 @@ void TIM2_init(void)
     TIM2->CR1 |= (1 << 0);
 }
 
-void TIM2_delayus(uint32_t us)
-{
-    uint32_t start = TIM2->CNT;
-    while ((TIM2->CNT - start) < us) {
-    }
-}
-
 void TIM4_PWM_PB6_init(void)
 {
     RCC->AHB1ENR |= (1 << 1);
@@ -35,15 +28,15 @@ void TIM4_PWM_PB6_init(void)
     TIM4->CR1 &= ~(1 << 0);
 
     GPIOB->MODER &= ~(3 << (6 * 2));
-    GPIOB->MODER |=  (2 << (6 * 2));
+    GPIOB->MODER |= (2 << (6 * 2));
 
     GPIOB->AFR[0] &= ~(0xF << (6 * 4));
-    GPIOB->AFR[0] |=  (2 << (6 * 4));
+    GPIOB->AFR[0] |= (2 << (6 * 4));
 
     GPIOB->OTYPER &= ~(1 << 6);
 
     GPIOB->OSPEEDR &= ~(3 << (6 * 2));
-    GPIOB->OSPEEDR |=  (1 << (6 * 2));
+    GPIOB->OSPEEDR |= (1 << (6 * 2));
 
     GPIOB->PUPDR &= ~(3 << (6 * 2));
 
@@ -53,11 +46,11 @@ void TIM4_PWM_PB6_init(void)
 
     /* PWM mode 1: PB6 is high while CNT is below CCR1. */
     TIM4->CCMR1 &= ~((3 << 0) | (7 << 4));
-    TIM4->CCMR1 |=  (6 << 4);
-    TIM4->CCMR1 |=  (1 << 3);
+    TIM4->CCMR1 |= (6 << 4);
+    TIM4->CCMR1 |= (1 << 3);
 
     TIM4->CCER &= ~(1 << 1);
-    TIM4->CCER |=  (1 << 0);
+    TIM4->CCER |= (1 << 0);
 
     TIM4->CR1 |= (1 << 7);
 
@@ -67,17 +60,24 @@ void TIM4_PWM_PB6_init(void)
     TIM4->CR1 |= (1 << 0);
 }
 
+void TIM2_delayus(uint32_t us)
+{
+    uint32_t start = TIM2->CNT;
+    while ((TIM2->CNT - start) < us) {
+    }
+}
+
 void Servo_SetPulseUs(uint32_t pulse_us)
 {
-	if (pulse_us < SERVO_MIN_PULSE_US) {
-	    pulse_us = SERVO_MIN_PULSE_US;
-	}
+    if (pulse_us < SERVO_MIN_PULSE_US) {
+        pulse_us = SERVO_MIN_PULSE_US;
+    }
 
-	if (pulse_us > SERVO_MAX_PULSE_US) {
-		pulse_us = SERVO_MAX_PULSE_US;
-	}
+    if (pulse_us > SERVO_MAX_PULSE_US) {
+        pulse_us = SERVO_MAX_PULSE_US;
+    }
 
-	TIM4->CCR1 = pulse_us;
+    TIM4->CCR1 = pulse_us;
 }
 
 void Servo_SetAngle(uint32_t angle)
@@ -87,7 +87,7 @@ void Servo_SetAngle(uint32_t angle)
     }
 
     uint32_t pulse_us = SERVO_MIN_PULSE_US
-                      + (angle * (SERVO_MAX_PULSE_US - SERVO_MIN_PULSE_US)) / 180;
+        + (angle * (SERVO_MAX_PULSE_US - SERVO_MIN_PULSE_US)) / 180;
 
     Servo_SetPulseUs(pulse_us);
 }
