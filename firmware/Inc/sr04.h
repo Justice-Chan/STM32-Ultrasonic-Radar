@@ -14,9 +14,9 @@ extern volatile uint32_t sr04_distance;
 extern volatile uint8_t sr04_data_ready;
 
 void SR04_StartMeasurement(void);
-uint8_t SR04_IsBusy(void);
 void SR04_init(void);
 void SR04_Trigger(void);
+uint8_t SR04_IsIdle(void);
 void SR04_TASK(void);
 void EXTI9_5_IRQHandler(void);
 

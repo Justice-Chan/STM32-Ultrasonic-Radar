@@ -94,7 +94,7 @@ void SCAN_TASK(void)
         }
 
         /* A timeout must not stop the rest of the sweep. */
-        else if (!SR04_IsBusy()) {
+        else if (SR04_IsIdle()) {
             scan_angle += scan_step;
 
             if (scan_angle >= SCAN_MAX_ANGLE) {

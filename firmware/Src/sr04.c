@@ -65,9 +65,9 @@ void SR04_StartMeasurement(void)
     }
 }
 
-uint8_t SR04_IsBusy(void)
+uint8_t SR04_IsIdle(void)
 {
-    return state != SR04_IDLE;
+    return state == SR04_IDLE;
 }
 
 void SR04_TASK(void)
