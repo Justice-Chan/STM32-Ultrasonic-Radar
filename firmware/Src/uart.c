@@ -31,7 +31,7 @@ void USART2_DMA_init(void)
     DMA1->S[6].CR &= ~(1 << 0);
     while (DMA1->S[6].CR & (1 << 0)) {
     }
-    DMA1->HIFCR |= (1 << 16) | (1 << 18) | (1 << 19) | (1 << 20) | (1 << 21);
+    DMA1->HIFCR = (1 << 16) | (1 << 18) | (1 << 19) | (1 << 20) | (1 << 21);
     DMA1->S[6].PAR = (uint32_t)&(USART2->DR);
 
     /* Channel 4, memory increment, memory-to-peripheral direction. */
